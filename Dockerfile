@@ -26,6 +26,4 @@ COPY --from=builder /usr/local/bin/nqptp /usr/local/bin/nqptp
 COPY start.sh /start.sh
 WORKDIR /
 ENV AIRPLAY_NAME RaspberryPi
-# output device e.g. hw:sndrpihifiberry
-ENV OUTPUT_DEVICE default
 ENTRYPOINT ["/start.sh"]
