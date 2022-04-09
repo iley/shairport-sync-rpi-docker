@@ -18,12 +18,13 @@ RUN autoreconf -fi && ./configure --with-systemd-startup && make install
 FROM ubuntu:20.04
 RUN apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    libpopt0 libconfig9 libasound2 avahi-daemon libavahi-client3 libssl1.1 libsoxr0 \
+    gettext-base libpopt0 libconfig9 libasound2 avahi-daemon libavahi-client3 libssl1.1 libsoxr0 \
     libplist3 libsodium23 libavutil56 libavcodec58 libavformat58 libuuid1 libgcrypt20
 COPY --from=builder /usr/local/bin/shairport-sync /usr/local/bin/shairport-sync
-COPY --from=builder /etc/shairport-sync.conf /etc/shairport-sync.conf
 COPY --from=builder /usr/local/bin/nqptp /usr/local/bin/nqptp
+COPY shairport-sync.conf /etc/shairport-sync.conf.template
 COPY start.sh /start.sh
 WORKDIR /
 ENV AIRPLAY_NAME RaspberryPi
+ENV OUTPUT_DEVICE default
 ENTRYPOINT ["/start.sh"]

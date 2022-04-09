@@ -1,4 +1,5 @@
 #!/bin/sh
+envsubst < /etc/shairport-sync.conf.template > /etc/shairport-sync.conf
 service dbus start
 service avahi-daemon start
 echo "Starting nqptp..."
